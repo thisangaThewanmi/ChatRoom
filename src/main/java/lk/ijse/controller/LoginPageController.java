@@ -13,7 +13,7 @@ import java.io.IOException;
 public class LoginPageController extends Application {
     public JFXTextField txtUsername;
 
-    public String username;
+    public static String username;
 
     public void AddUser(ActionEvent actionEvent) throws IOException {
         username = txtUsername.getText();
