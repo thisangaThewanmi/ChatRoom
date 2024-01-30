@@ -24,5 +24,29 @@ public class Client {
          this.writer = new PrintWriter(socket.getOutputStream(), true);
      }
 
+    public void run() {
+        try {
+            String msg;
+            while ((msg = bufferedReader.readLine()) != null) {
+                if (msg.equalsIgnoreCase( "exit")) {
+                    break;
+                }
+                for (Client client : clientsArrayList) {
+                    client.writer.println(msg);
+                }
+            }
+        } catch (Exception e) {
+            // e.printStackTrace();
+        }
+        finally {
+            try {
+                bufferedReader.close();
+                writer.close();
+                socket.close();
+            } catch (IOException e) {
+                // e.printStackTrace();
+            }
+        }
+    }
 
 }
