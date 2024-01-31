@@ -3,15 +3,18 @@ package lk.ijse.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
@@ -50,7 +53,6 @@ public class ClientFormController extends Thread {
 
 
 
-    //////////////////////////////////////////////////////////////////////
 
     @Override
     public void run(){
@@ -87,7 +89,7 @@ public class ClientFormController extends Thread {
 
                     ImageView imageView = new ImageView(image);
 
-                    imageView.setFitHeight(150);
+                    imageView.setFitHeight(200);
                     imageView.setFitWidth(200);
 
                     HBox hBox = new HBox(10);
@@ -170,4 +172,12 @@ public class ClientFormController extends Thread {
     }
 
 
+    public void OpenImage(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        this.filePath = fileChooser.showOpenDialog(stage);
+        writer.println(txtUsername.getText() + " " + "img" + filePath.getPath());
+
+    }
 }

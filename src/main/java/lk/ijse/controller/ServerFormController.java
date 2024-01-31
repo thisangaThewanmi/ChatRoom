@@ -16,10 +16,10 @@ public class ServerFormController {
         while (true) {
             System.out.println("Waiting fo the client");
             socket = serverSocket.accept();
-            System.out.println("client" + count + 1 + "connected");
+            System.out.println("client" + (count + 1) + "connected");
             Client client = new Client(socket, clientsArrayList);
             clientsArrayList.add(client);
-            client.run();
+            client.start();
             count++;
 
         }
