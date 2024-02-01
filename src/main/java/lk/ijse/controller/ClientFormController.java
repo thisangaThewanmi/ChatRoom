@@ -1,10 +1,14 @@
 package lk.ijse.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.sun.javafx.menu.MenuItemBase;
+import com.vdurmont.emoji.EmojiManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,15 +19,21 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lk.ijse.emoji.EmojiPicker;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+
+import static com.vdurmont.emoji.EmojiManager.containsEmoji;
 
 public class ClientFormController extends Thread {
 
     public Label txtUsername;
     public VBox mainContainor;
     public TextField txtFeild;
+    public ImageView emojiIcon;
+    public JFXButton btnEmoji;
 
 
     PrintWriter writer;
@@ -33,6 +43,8 @@ public class ClientFormController extends Thread {
 
     private FileChooser fileChooser;
     private File filePath;
+
+   private  EmojiPicker emojiPicker ;
 
 
     public void initialize() {
@@ -49,6 +61,9 @@ public class ClientFormController extends Thread {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        emoji();
+        System.out.println("emoji mehod caled");
     }
 
 
@@ -62,6 +77,8 @@ public class ClientFormController extends Thread {
                 String[] tokens = msg.split(" ");
                 String cmd = tokens[0];
                 System.out.println(cmd);
+
+                boolean isEmoji = EmojiManager.isEmoji(cmd);
 
                 StringBuilder fullMsg = new StringBuilder();
                 for (int i = 1; i < tokens.length; i++) {
@@ -146,8 +163,15 @@ public class ClientFormController extends Thread {
                         hBox.getChildren().add(flow2);
                     }
                     Platform.runLater(() -> mainContainor.getChildren().addAll(hBox));
+
+                  /*  if(containsEmoji(cmd)){
+                        emoji();
+                        System.out.println("emoji method called");
+                    }*/
+
                 }
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,4 +204,56 @@ public class ClientFormController extends Thread {
         writer.println(txtUsername.getText() + " " + "img" + filePath.getPath());
 
     }
-}
+
+    private void emoji() {
+
+        EmojiPicker emojiPicker = new EmojiPicker();
+
+        VBox vBox = new VBox(emojiPicker);
+        vBox.setPrefSize(150,300);
+        vBox.setLayoutX(400);
+        vBox.setLayoutY(175);
+        vBox.setStyle("-fx-font-size: 30");
+
+        mainContainor.getChildren().add(vBox);
+
+        // Set the emoji picker as hidden initially
+        emojiPicker.setVisible(false);
+
+        // Show the emoji picker when the button is clicked
+        btnEmoji.setOnAction(event -> {
+            System.out.println("emoji button clicked");
+            if (emojiPicker.isVisible()){
+                emojiPicker.setVisible(false);
+            }else {
+                emojiPicker.setVisible(true);
+            }
+        });
+
+
+        // Set the selected emoji from the picker to the text field
+        emojiPicker.getEmojiListView().setOnMouseClicked(event -> {
+            String selectedEmoji = emojiPicker.getEmojiListView().getSelectionModel().getSelectedItem();
+            if (selectedEmoji != null) {
+                txtFeild.setText(txtFeild.getText()+selectedEmoji);
+            }
+            emojiPicker.setVisible(false);
+        });
+    }
+
+    public void OpenEmoji(ActionEvent actionEvent) {
+        //emoji();
+
+
+    }
+
+
+    }
+
+
+
+
+
+
+
+
