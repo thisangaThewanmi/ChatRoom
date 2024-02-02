@@ -5,6 +5,7 @@ import com.sun.javafx.menu.MenuItemBase;
 import com.vdurmont.emoji.EmojiManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -24,6 +25,8 @@ import lk.ijse.emoji.EmojiPicker;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.vdurmont.emoji.EmojiManager.containsEmoji;
 
@@ -112,6 +115,9 @@ public class ClientFormController extends Thread {
                     HBox hBox = new HBox(10);
                     hBox.setAlignment(Pos.BOTTOM_RIGHT);
 
+                    HBox hBoxTime = new HBox();
+                    hBoxTime.setAlignment(Pos.CENTER_RIGHT);
+
                     if (!cmd.equalsIgnoreCase(txtUsername.getText())) {
                         mainContainor.setAlignment(Pos.TOP_LEFT);
                         hBox.setAlignment(Pos.CENTER_LEFT);
@@ -121,15 +127,39 @@ public class ClientFormController extends Thread {
                         hBox.getChildren().add(imageView);
                         hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
 
+                        ////////////////////////////////////////////
+
+                        hBoxTime.setPadding(new Insets(0, 5, 5, 10));
+                        String stringTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+                        Text time = new Text(stringTime);
+                        time.setStyle("-fx-font-size: 8");
+
+                        hBoxTime.getChildren().add(time);
+
+                        ////////////////////////////////////////
+
                     } else {
                         hBox.setAlignment(Pos.BOTTOM_RIGHT);
                         hBox.getChildren().add(imageView);
                         Text text1 = new Text(": Me ");
                         hBox.getChildren().add(text1);
                         hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+
+
+                        ///////////////////////////////////////////////////////
+
+                        hBoxTime.setPadding(new Insets(0, 5, 5, 10));
+                        String stringTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+                        System.out.println("string time:"+stringTime);
+                        Text time = new Text(stringTime);
+                        time.setStyle("-fx-font-size: 8");
+
+                        hBoxTime.getChildren().add(time);
+
+                        ////////////////////////////////////////
                     }
 
-                    Platform.runLater(() -> mainContainor.getChildren().addAll(hBox));
+                    Platform.runLater(() -> mainContainor.getChildren().addAll(hBox, hBoxTime));
 
 
                 } else {
@@ -157,9 +187,9 @@ public class ClientFormController extends Thread {
                     } else {
                         Text text2 = new Text(fullMsg + ": Me");
                         TextFlow flow2 = new TextFlow(text2);
-                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.setAlignment(Pos.TOP_RIGHT);
                         hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
-                        flow2.setStyle("-fx-background-color:  #CCFF9A;-fx-background-radius:15;-fx-font-size: 15;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+                        flow2.setStyle("-fx-background-color:  #ffc7ea;-fx-background-radius:15;-fx-font-size: 15;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
                         hBox.getChildren().add(flow2);
                     }
                     Platform.runLater(() -> mainContainor.getChildren().addAll(hBox));

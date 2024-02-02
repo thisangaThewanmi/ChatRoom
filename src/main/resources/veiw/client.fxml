@@ -7,25 +7,31 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="495.0" style="-fx-background-color: #519259;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.ClientFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="495.0" style="-fx-background-color: #A084CA;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.ClientFormController">
 
    <children>
-      <ScrollPane layoutY="62.0" prefHeight="518.0" prefWidth="495.0">
+      <ScrollPane layoutY="62.0" prefHeight="514.0" prefWidth="495.0">
          <content>
-            <VBox fx:id="mainContainor" prefWidth="494.0">
-               <children>
-                  <HBox prefHeight="36.0" prefWidth="494.0" />
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="494.0" />
-               </children></VBox>
+            <VBox fx:id="mainContainor" prefHeight="504.0" prefWidth="485.0" />
          </content>
       </ScrollPane>
-      <Label fx:id="txtUsername" layoutX="14.0" layoutY="9.0" prefHeight="43.0" prefWidth="204.0" text="Label" textFill="#fcf5f5" />
+      <Label fx:id="txtUsername" layoutX="91.0" layoutY="14.0" prefHeight="43.0" prefWidth="204.0" text="Label" textFill="#fcf5f5">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
       <TextField fx:id="txtFeild" layoutX="12.0" layoutY="588.0" prefHeight="51.0" prefWidth="413.0" promptText="Type the message here" style="-fx-background-radius: 15;">
       </TextField>
-      <JFXButton layoutX="430.0" layoutY="590.0" onAction="#btnSendOnAction" prefHeight="60.0" prefWidth="57.0" text="Send" />
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="430.0" layoutY="590.0" onAction="#btnSendOnAction" prefHeight="60.0" prefWidth="57.0" text="Send">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons8-send-100.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
       <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="375.0" layoutY="596.0" onMouseClicked="#OpenImage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/2606083_5563.jpeg" />
@@ -40,5 +46,10 @@
             </ImageView>
          </graphic>
       </JFXButton>
+      <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="23.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/user.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
